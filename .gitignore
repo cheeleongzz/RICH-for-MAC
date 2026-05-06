@@ -1,0 +1,57 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.env/
+ENV/
+
+# ── Local secrets ──────────────────────────────────────────────────────────────
+.env
+*.env.local
+*.env.production
+
+# ── SQLite databases ───────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── RICH runtime artifacts ─────────────────────────────────────────────────────
+logs/
+data/fmp_cache_*.json
+results/
+
+# ── Test / coverage ────────────────────────────────────────────────────────────
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ── IDE / editor ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.code-workspace
+*.suo
+*.user
+*.swp
+*~
+
+# ── OS ─────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Windows crash dumps ────────────────────────────────────────────────────────
+*.stackdump
