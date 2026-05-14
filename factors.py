@@ -8,10 +8,12 @@ from __future__ import annotations
 
 import json
 import threading
-from datetime import date as _date
+from datetime import datetime
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
+from config import TIMEZONE
 from data.fetcher import FMPClient, FMPError
 import piotroski
 
@@ -106,7 +108,7 @@ def extract(symbol: str, client: FMPClient | None = None,
     and raw multi-year rows (_inc_rows, _bs_rows, _cf_rows) for Beneish.
     Raises FMPError on fetch failure.
     """
-    today  = _date.today().isoformat()
+    today  = datetime.now(ZoneInfo(TIMEZONE)).date().isoformat()
     cached = _get_cached(symbol, today)
     if cached is not None:
         inc = cached["inc"]
