@@ -3,7 +3,7 @@
 > **Start here.** This is the authoritative project overview for RICH — a fully automated US-equity stock recommender built on Python, SQLite, and the FMP API. It describes the investment philosophy, the complete pipeline architecture, the factor scoring model, and the current implementation status of every phase. If you are reading the code for the first time, read this document before anything else.
 
 **Last updated:** 2026-05-06  
-**Stack:** Python 3.13 · SQLite · FMP API · Windows Task Scheduler (MYT UTC+8)
+**Stack:** Python 3.13 · SQLite · FMP API · Windows Task Scheduler or macOS launchd (MYT UTC+8)
 
 ---
 
@@ -20,7 +20,9 @@
 
 ## 1. Overview
 
-RICH is a **fully automated, pure-fundamentals stock picker** that runs every trading day on a Windows machine. It ingests raw financial data from the FMP API, filters a broad US-equity universe down to a single daily recommendation, and writes every decision — score, flag, and reject reason — to SQLite for full auditability.
+RICH is a **fully automated, pure-fundamentals stock picker** that runs every trading day on a Windows or macOS machine. It ingests raw financial data from the FMP API, filters a broad US-equity universe down to a single daily recommendation, and writes every decision — score, flag, and reject reason — to SQLite for full auditability.
+
+On macOS the same pipeline runs under launchd; see the README for the bootstrap and scheduler-install commands.
 
 The system is systematic and rules-based: no human intervention is required after setup, and no subjective judgement enters the model. It favours earnings quality and genuine profitability over growth narratives. When no candidate clears all gates, the system outputs no recommendation rather than being forced to pick.
 

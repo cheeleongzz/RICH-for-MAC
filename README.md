@@ -1,8 +1,8 @@
 # RICH
 
-A fully automated US-equity stock recommender that runs daily on Windows. RICH ingests financial data from the [Financial Modeling Prep API](https://financialmodelingprep.com/), applies a structured fundamental-analysis pipeline across ~1,000 eligible stocks, and outputs a single daily recommendation — or no recommendation when nothing clears all quality gates. Every decision is stored in SQLite for full auditability. The system has no connection to any brokerage or execution platform.
+A fully automated US-equity stock recommender that runs daily on Windows or macOS. RICH ingests financial data from the [Financial Modeling Prep API](https://financialmodelingprep.com/), applies a structured fundamental-analysis pipeline across ~1,000 eligible stocks, and outputs a single daily recommendation — or no recommendation when nothing clears all quality gates. Every decision is stored in SQLite for full auditability. The system has no connection to any brokerage or execution platform.
 
-**Stack:** Python 3.13 · SQLite · FMP API · Windows Task Scheduler
+**Stack:** Python 3.13 · SQLite · FMP API · Windows Task Scheduler / macOS launchd
 
 ---
 
@@ -49,7 +49,7 @@ That document is the best starting point for understanding the system. Read it b
 ## Running
 
 ```bash
-# Daily run (also triggered automatically by Task Scheduler)
+# Daily run (also triggered automatically by Task Scheduler / launchd)
 python run_daily.py
 
 # View today's pick
@@ -63,3 +63,28 @@ python run_portfolio.py --show
 ```
 
 Requires a `.env` file with `FMP_API_KEY=<your_key>`. See `.env.example`.
+
+### macOS quickstart
+
+```bash
+# 1. Create .venv and install requirements
+bash scripts/bootstrap_venv.sh
+
+# 2. Add your FMP key
+cp .env.example .env
+$EDITOR .env
+
+# 3. Run once manually
+./run_daily.sh
+./view_today.sh
+
+# 4. Install the launchd agent (08:00 + 12:00 MYT, converted to local tz)
+bash scripts/install_scheduler.sh
+
+# Uninstall:
+bash scripts/uninstall_scheduler.sh
+```
+
+The launchd agent runs `run_daily.py` from `./.venv/bin/python`; stdout/stderr
+land in `logs/launchd.out` and `logs/launchd.err`. Re-run `install_scheduler.sh`
+after a timezone change (e.g., travel) to re-render the local trigger times.
